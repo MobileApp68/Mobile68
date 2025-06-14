@@ -86,7 +86,9 @@ export default function App() {
         <View style={styles.active} > 
           <View style={styles.jobs} >
             <Text style={{flex:1, textAlign: 'center', margin: 'auto'}} >My Jobs</Text>
-            <View style={styles.ac}></View>
+            <View style={styles.ac}>
+              <Text style={{margin: 'auto'}} >All Active</Text>
+            </View>
           </View>
           <Entypo name="circle-with-plus" size={50} color="green" />
         </View>
