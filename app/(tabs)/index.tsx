@@ -1,43 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Link } from 'expo-router';
+import Header from '../components/Header';
+import { useRouter } from 'expo-router';
+
+
 
 export default function App() {
+  const router = useRouter(); 
   return (<>
     
     <View style={styles.container} >
       
-      <View style={styles.header} >
-        <View style={styles.three}  >
-          <AntDesign name="star" size={24} color="red" />
-          <Text style= {{fontSize:20, fontWeight: 'bold'}} >AgriWebb</Text>
-          <Ionicons name="chatbubble-ellipses-outline" size={24} color="white" />
-        </View>
-      </View>
+       <Header/>
 
 
       <View style={styles.mainContent} >
 
         <View style={styles.farms} >
-          <FontAwesome5 name="home" size={32} color="blue" />
+          <MaterialCommunityIcons name="barn" size={24} color="black" />
           <View >
             <Text style={{fontWeight: 'bold', fontSize: 20}} >Marigold Farms</Text>
             <Text style={{fontSize: 20, opacity:500}}>Sunday 25th May 2025</Text>
           </View>
         </View>
 
-        <View style={styles.coral} >
-          <Text style={{color: 'white', fontSize: 20}} >Finish Setting Up Your Farm</Text>
-          
-        </View>
 
         <View style={styles.details} >
           <Text >Individual Animals</Text>
-          <Text>More Details</Text>
+          <TouchableOpacity onPress={ ()=> router.push('/screens/MoreDetails') } >
+            <Text>More Details</Text>
+          </TouchableOpacity>
         </View>        
 
         <View style={styles.animalSection} >
@@ -70,12 +68,12 @@ export default function App() {
               <Text>Total Ytd</Text>
               <Text>~</Text>
             </View>
-            <View style={styles.ytdTwo}>
+            <View style={styles.ytdOne}>
               <Text>Wet Days Ytd</Text>
               <Text>0</Text>              
             </View>            
           </View>
-          <Entypo name="circle-with-plus" size={50} color="green" />
+          <Entypo name="circle-with-plus" size={50} color="#2D5A3D" />
         </View>
 
         <View style={styles.tasks} >
@@ -90,7 +88,7 @@ export default function App() {
               <Text style={{margin: 'auto'}} >All Active</Text>
             </View>
           </View>
-          <Entypo name="circle-with-plus" size={50} color="green" />
+          <Entypo name="circle-with-plus" size={50} color="#2D5A3D" />
         </View>
 
 
@@ -108,19 +106,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
-  },
-  header: {
-    paddingTop:30,
-    paddingHorizontal:10,
-    backgroundColor: 'grey',
-    height: 80,
-    marginBottom: 20,
-  },
-  three:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 5,
+    backgroundColor: '#F4F1F1'
   },
   details: {
     flexDirection: 'row',
@@ -202,13 +188,6 @@ const styles = StyleSheet.create({
     height:100,
     gap: 10,
     padding: 9,
-  },
-  ytdTwo:{
-    borderWidth:1,
-    flex:1,
-    height:100,    
-    padding: 9,
-    gap: 10,
   },
   ytdBox: {
     flex:1,
