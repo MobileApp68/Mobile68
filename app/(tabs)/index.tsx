@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -17,9 +17,9 @@ export default function App() {
     
     <View style={styles.container} >
       
-       <Header/>
+      <Header/>
 
-
+      <ScrollView>
       <View style={styles.mainContent} >
 
         <View style={styles.farms} >
@@ -96,7 +96,7 @@ export default function App() {
       </View>
 
 
-
+      </ScrollView>
     </View>
     </> )
 }
