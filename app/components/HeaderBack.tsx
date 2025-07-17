@@ -1,22 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { router } from 'expo-router';
 
 
-const Header = () => {
+const HeaderBack = () => {
   return (
     <View style={styles.header} >
         <View style={styles.three}  >
-            <AntDesign name="star" size={24} color="red" />
+            <FontAwesome name="arrow-left" size={24} color="white" />
             <Text style= {{fontSize:20, fontWeight: 'bold', color: 'white'}} >AgriWebb</Text>
-            <Ionicons name="chatbubble-ellipses-outline" size={24} color="white" />
+            <TouchableOpacity  >
+              <Ionicons name="chatbubble-ellipses-outline" size={24} color="white" />
+            </TouchableOpacity>
         </View>
   </View>
   )
 }
 
-export default Header
+export default HeaderBack
 
 const styles = StyleSheet.create({
     header: {

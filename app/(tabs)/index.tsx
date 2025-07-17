@@ -7,12 +7,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Link } from 'expo-router';
 import Header from '../components/Header';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
 
 
 export default function App() {
-  const router = useRouter(); 
   return (<>
     
     <View style={styles.container} >

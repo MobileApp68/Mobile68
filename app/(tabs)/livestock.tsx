@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -7,6 +7,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Header from '../components/Header';
+import { router } from 'expo-router';
 
 const livestock = () => {
   return (
@@ -14,71 +15,80 @@ const livestock = () => {
 
       <Header />
 
-    
-      <View style={styles.live} >
-        <View style={styles.liveOne}>
-          <FontAwesome name="calculator" size={24} color="black" />
-          <View style={{paddingTop: 5, alignItems: 'center' }} >
-            <Text>Start Live</Text>
-            <Text>Session</Text>            
+      <ScrollView>
+        <View style={styles.live} >
+          <View style={styles.liveOne}>
+            <FontAwesome name="calculator" size={24} color="black" />
+            <View style={{paddingTop: 5, alignItems: 'center' }} >
+              <Text>Start Live</Text>
+              <Text>Session</Text>            
+            </View>
+
+          </View>
+
+          <View style={styles.liveOne}>
+            <FontAwesome name="newspaper-o" size={24} color="black" />
+            <View style={{paddingTop: 5, alignItems: 'center' }} >
+              <Text>Create Bulk</Text>
+              <Text>Record</Text>            
+            </View>
+            
           </View>
 
         </View>
 
-        <View style={styles.liveOne}>
-          <FontAwesome name="newspaper-o" size={24} color="black" />
-          <View style={{paddingTop: 5, alignItems: 'center' }} >
-            <Text>Create Bulk</Text>
-            <Text>Record</Text>            
-          </View>
-          
+        <View style={styles.mainContent} >
+          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') } >
+            <View style={styles.might}>
+              <View  style= {styles.adjust}>
+                <AntDesign name="tags" size={24} color="black"/>
+                <Text>Individual Animals</Text>
+              </View>
+              <Entypo  name="chevron-right" size={24} color="black" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
+            <View style={styles.might}>
+              <View style= {styles.adjust}>
+                <MaterialCommunityIcons name="clipboard-list" size={24} color="black" />
+                <Text>Record Templates</Text>       
+              </View>   
+              <Entypo name="chevron-right" size={24} color="black" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
+            <View style={styles.might}>
+              <View style= {styles.adjust}>
+                <Ionicons name="brush-sharp" size={24} color="black" />
+                <Text>Live Sessions</Text>
+              </View>
+              <Entypo name="chevron-right" size={24} color="black" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
+            <View style={styles.might}>
+              <View style= {styles.adjust}>
+                <Entypo name="back-in-time" size={24} color="black" />
+                <Text>Activity</Text> 
+              </View> 
+              <Entypo name="chevron-right" size={24} color="black" />         
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
+            <View style={styles.might}>
+              <View style= {styles.adjust}>
+                <SimpleLineIcons name="basket-loaded" size={24} color="black" />
+                <Text>Feed Plans</Text>  
+              </View>
+              <Entypo name="chevron-right" size={24} color="black" />        
+            </View>
+          </TouchableOpacity>
         </View>
 
-      </View>
-
-      <View style={styles.mainContent} >
-
-        <View style={styles.might}>
-          <View  style= {styles.adjust}>
-            <AntDesign name="tags" size={24} color="black"/>
-            <Text>Individual Animals</Text>
-          </View>
-          <Entypo name="chevron-right" size={24} color="black" />
-        </View>
-
-        <View style={styles.might}>
-          <View style= {styles.adjust}>
-            <MaterialCommunityIcons name="clipboard-list" size={24} color="black" />
-            <Text>Record Templates</Text>       
-          </View>   
-          <Entypo name="chevron-right" size={24} color="black" />
-        </View>
-
-        <View style={styles.might}>
-          <View style= {styles.adjust}>
-            <Ionicons name="brush-sharp" size={24} color="black" />
-            <Text>Live Sessions</Text>
-          </View>
-          <Entypo name="chevron-right" size={24} color="black" />
-        </View>
-
-        <View style={styles.might}>
-          <View style= {styles.adjust}>
-            <Entypo name="back-in-time" size={24} color="black" />
-            <Text>Activity</Text> 
-          </View> 
-          <Entypo name="chevron-right" size={24} color="black" />         
-        </View>
-
-        <View style={styles.might}>
-          <View style= {styles.adjust}>
-            <SimpleLineIcons name="basket-loaded" size={24} color="black" />
-            <Text>Feed Plans</Text>  
-          </View>
-          <Entypo name="chevron-right" size={24} color="black" />        
-        </View>
-
-      </View>
 
 
 
@@ -89,8 +99,7 @@ const livestock = () => {
 
 
 
-
-
+      </ScrollView> 
     </View>
   )
 }
