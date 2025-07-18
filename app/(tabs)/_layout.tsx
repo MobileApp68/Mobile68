@@ -14,7 +14,7 @@ const _layout = () => {
         options={{
             title: 'Home',
             headerShown: false,
-            tabBarIcon: ({color}) => <MaterialIcons name="home" size={24} color="black" />
+            tabBarIcon: ({color}) => <MaterialIcons name="home" size={24} color="#2D5A3D" />
         }}
         />
         <Tabs.Screen 
@@ -22,7 +22,7 @@ const _layout = () => {
         options={{
             title: 'Maps',
             headerShown: false,
-            tabBarIcon: ({color}) => <FontAwesome name="map-marker" size={24} color="black" /> 
+            tabBarIcon: ({color}) => <FontAwesome name="map-marker" size={24} color="#2D5A3D" /> 
         }}
         />
         <Tabs.Screen 
@@ -30,7 +30,7 @@ const _layout = () => {
         options={{
             title: 'Livestock',
             headerShown: false,
-            tabBarIcon: ({color}) => <MaterialIcons name="goat" size={24} color="black" /> 
+            tabBarIcon: ({color}) => <MaterialIcons name="goat" size={24} color="#2D5A3D" /> 
         }}
         />        
         <Tabs.Screen 
@@ -38,7 +38,7 @@ const _layout = () => {
         options={{
             title: 'Tasks',
             headerShown: false,
-            tabBarIcon: ({color}) => <FontAwesome5 name="tasks" size={24} color="black" /> 
+            tabBarIcon: ({color}) => <FontAwesome5 name="tasks" size={24} color="#2D5A3D" /> 
         }}
         />
         <Tabs.Screen 
@@ -46,7 +46,7 @@ const _layout = () => {
         options={{
             title: 'Menu',
             headerShown: false,
-            tabBarIcon: ({color}) => <Ionicons name="menu" size={24} color="black" /> 
+            tabBarIcon: ({color}) => <Ionicons name="menu" size={24} color="#2D5A3D" /> 
 
         }}
         />        

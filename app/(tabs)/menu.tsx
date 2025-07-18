@@ -20,7 +20,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View  style= {styles.adjust}>
-              <MaterialCommunityIcons name="barn" size={24} color="black" />
+              <MaterialCommunityIcons name="barn" size={24} color="#2D5A3D" />
               <Text>Farm</Text>
             </View>
             <Entypo name="chevron-right" size={24} color="black" />
@@ -28,7 +28,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <FontAwesome5 name="calendar-check" size={24} color="black" />
+              <FontAwesome5 name="calendar-check" size={24} color="#2D5A3D" />
               <Text>Record Templates</Text>       
             </View>   
             <Entypo name="chevron-right" size={24} color="black" />
@@ -36,7 +36,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <MaterialIcons name="inventory" size={24} color="black" />
+              <MaterialIcons name="inventory" size={24} color="#2D5A3D" />
               <Text>Live Sessions</Text>
             </View>
             <Entypo name="chevron-right" size={24} color="black" />
@@ -44,7 +44,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <FontAwesome5 name="truck" size={24} color="black" />
+              <FontAwesome5 name="truck" size={24} color="#2D5A3D" />
               <Text>Activity</Text> 
             </View> 
             <Entypo name="chevron-right" size={24} color="black" />         
@@ -52,7 +52,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <FontAwesome5 name="cloud-rain" size={24} color="black" />
+              <FontAwesome5 name="cloud-rain" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="black" />        
@@ -60,7 +60,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <Ionicons name="settings-outline" size={24} color="black" />
+              <Ionicons name="settings-outline" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="black" />        
@@ -68,7 +68,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <FontAwesome name="bluetooth" size={24} color="black" />
+              <FontAwesome name="bluetooth" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="black" />        
@@ -76,7 +76,7 @@ const menu = () => {
 
           <View style={styles.might}>
             <View style= {styles.adjust}>
-              <FontAwesome5 name="headset" size={24} color="black" />
+              <FontAwesome5 name="headset" size={24} color="#2D5A3D" />
               <Text>Support</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="black" />        
