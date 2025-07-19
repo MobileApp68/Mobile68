@@ -1,25 +1,32 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
 import React from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
-import { Link } from 'expo-router';
 import Header from '../components/Header';
-import { router } from 'expo-router';
+import { router,  } from 'expo-router';
+import { useState } from 'react';
 
+    const [animalCounts, setAnimalCounts] = useState({
+    bulls: 0,
+    cattle: 0,
+    rams: 0,
+    sheep: 0
+});
 
 
 export default function App() {
   return (<>
     <SafeAreaView style={styles.safeContainer} >
+
+
       <View style={styles.container} >
         
+
         <Header/>
 
         <ScrollView>
         <View style={styles.mainContent} >
+
 
           <View style={styles.farms} >
             <MaterialCommunityIcons name="barn" size={24} color="#2D5A3D" />
@@ -40,19 +47,19 @@ export default function App() {
           <View style={styles.animalSection} >
             <View style={styles.boxOne} >
               <Text>Bulls</Text>
-              <Text>0</Text>
+              <Text>{animalCounts.bulls}</Text>
             </View>
             <View style={styles.boxTwo} >
               <Text>Cattle</Text>
-              <Text>0</Text>
+              <Text>{animalCounts.cattle}</Text>
             </View>
             <View style={styles.boxThree} >
               <Text>Rams</Text>
-              <Text>0</Text>
+              <Text>{animalCounts.rams}</Text>
             </View>
             <View style={styles.boxFour} >
               <Text>Sheep</Text>
-              <Text>0</Text>
+              <Text>{animalCounts.sheep}</Text>
             </View>
           </View>
 

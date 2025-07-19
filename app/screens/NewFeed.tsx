@@ -8,10 +8,10 @@ const NewAnimal = () => {
     <View style = {styles.container}>
 
       <View style ={styles.block} >
-        <TouchableOpacity onPress={ ()=> router.push('/screens/AddAnimal') } >
+        <TouchableOpacity onPress={ ()=> router.push('/screens/AddFeed') } >
           <Entypo name="circle-with-plus" size={32} color="#2D5A3D" />
         </TouchableOpacity>
-        <Text>Add A New Animal</Text>
+        <Text>Add A Feed Plan</Text>
       </View>
     </View>
   )
