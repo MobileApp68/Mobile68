@@ -23,7 +23,7 @@ const menu = () => {
               <MaterialCommunityIcons name="barn" size={24} color="#2D5A3D" />
               <Text>Farm</Text>
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </View>
 
           <View style={styles.might}>
@@ -31,7 +31,7 @@ const menu = () => {
               <FontAwesome5 name="calendar-check" size={24} color="#2D5A3D" />
               <Text>Record Templates</Text>       
             </View>   
-            <Entypo name="chevron-right" size={24} color="black" />
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </View>
 
           <View style={styles.might}>
@@ -39,7 +39,7 @@ const menu = () => {
               <MaterialIcons name="inventory" size={24} color="#2D5A3D" />
               <Text>Live Sessions</Text>
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </View>
 
           <View style={styles.might}>
@@ -47,7 +47,7 @@ const menu = () => {
               <FontAwesome5 name="truck" size={24} color="#2D5A3D" />
               <Text>Activity</Text> 
             </View> 
-            <Entypo name="chevron-right" size={24} color="black" />         
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />         
           </View>
 
           <View style={styles.might}>
@@ -55,7 +55,7 @@ const menu = () => {
               <FontAwesome5 name="cloud-rain" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />        
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
 
           <View style={styles.might}>
@@ -63,7 +63,7 @@ const menu = () => {
               <Ionicons name="settings-outline" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />        
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
 
           <View style={styles.might}>
@@ -71,7 +71,7 @@ const menu = () => {
               <FontAwesome name="bluetooth" size={24} color="#2D5A3D" />
               <Text>Feed Plans</Text>  
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />        
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
 
           <View style={styles.might}>
@@ -79,7 +79,7 @@ const menu = () => {
               <FontAwesome5 name="headset" size={24} color="#2D5A3D" />
               <Text>Support</Text>  
             </View>
-            <Entypo name="chevron-right" size={24} color="black" />        
+            <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
 
         </View>

@@ -16,13 +16,51 @@ export default function RootLayout() {
     <Stack.Screen 
     name='NewAnimal'
     options={{
-        headerStyle: {backgroundColor: 'red'}
+      headerStyle: {backgroundColor: 'green'},
+      headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+      headerTitle : () => <Text style={styles.title} >Individual Animals</Text>
+  
+  }}
+    />
+        <Stack.Screen 
+    name='AddAnimal'
+    options={{
+      headerStyle: {backgroundColor: 'green'},
+      headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+      headerTitle : () => <Text style={styles.title} >Individual Animals</Text>
+  
+  }}
+    />
+      <Stack.Screen 
+    name='NewFeed'
+    options={{
+      headerStyle: {backgroundColor: 'green'},
+      headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+      headerTitle : () => <Text style={styles.title} >Individual Animals</Text>
+  
+  }}
+    />  
+      <Stack.Screen 
+    name='AddFeed'
+    options={{
+        headerStyle: {backgroundColor: 'green'},
+        headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+        headerTitle : () => <Text style={styles.title} >Individual Animals</Text>
     
     }}
-    />
+    />  
 
   </Stack>;
 }
+
+
+
+
+
+
+
+
+
 const styles = StyleSheet.create({
     title: {
         fontSize: 20,
