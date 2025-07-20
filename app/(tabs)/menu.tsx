@@ -29,7 +29,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <FontAwesome5 name="calendar-check" size={24} color="#2D5A3D" />
-              <Text>Record Templates</Text>       
+              <Text>Calendar</Text>       
             </View>   
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </View>
@@ -37,7 +37,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <MaterialIcons name="inventory" size={24} color="#2D5A3D" />
-              <Text>Live Sessions</Text>
+              <Text>Inventory</Text>
             </View>
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </View>
@@ -45,7 +45,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <FontAwesome5 name="truck" size={24} color="#2D5A3D" />
-              <Text>Activity</Text> 
+              <Text>Livestock Management</Text> 
             </View> 
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />         
           </View>
@@ -53,7 +53,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <FontAwesome5 name="cloud-rain" size={24} color="#2D5A3D" />
-              <Text>Feed Plans</Text>  
+              <Text>Rainfall Records</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
@@ -61,7 +61,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <Ionicons name="settings-outline" size={24} color="#2D5A3D" />
-              <Text>Feed Plans</Text>  
+              <Text>Settings</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>
@@ -69,7 +69,7 @@ const menu = () => {
           <View style={styles.might}>
             <View style= {styles.adjust}>
               <FontAwesome name="bluetooth" size={24} color="#2D5A3D" />
-              <Text>Feed Plans</Text>  
+              <Text>Hardware</Text>  
             </View>
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
           </View>

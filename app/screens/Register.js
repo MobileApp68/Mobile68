@@ -28,6 +28,7 @@ const Register = () => {
   const API_URL = "http://192.168.8.194:8080/api/auth/register";
 
   const handleRegister = async () => {
+    router.replace('/(tabs)/Home')
     if (!username.trim()) {
       Alert.alert("Missing Field", "Please enter a username");
       return;
@@ -145,7 +146,7 @@ const Register = () => {
         
           <Pressable
             title="Register"
-            onPress={handleRegister}
+            onPress={handleRegister }
             style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
             disabled={!username || !email || !password}
           >

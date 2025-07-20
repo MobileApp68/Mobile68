@@ -48,7 +48,7 @@ const livestock = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
+          <TouchableOpacity onPress={ () => router.push('/screens/NewTemplate') }>
             <View style={styles.might}>
               <View style= {styles.adjust}>
                 <MaterialCommunityIcons name="clipboard-list" size={24} color="#2D5A3D" />

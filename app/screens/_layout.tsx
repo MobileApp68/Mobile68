@@ -40,7 +40,7 @@ export default function RootLayout() {
   
   }}
     />  
-      <Stack.Screen 
+    <Stack.Screen 
     name='AddFeed'
     options={{
         headerStyle: {backgroundColor: 'green'},
@@ -49,6 +49,24 @@ export default function RootLayout() {
     
     }}
     />  
+    <Stack.Screen 
+    name='NewTemplate'
+    options={{
+        headerStyle: {backgroundColor: 'green'},
+        headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+        headerTitle : () => <Text style={styles.title} >New Template</Text>
+    
+    }}
+    />
+    <Stack.Screen 
+    name='AddTemplate'
+    options={{
+        headerStyle: {backgroundColor: 'green'},
+        headerRight: () => <AntDesign style={{paddingRight: 10}} name="message1" size={24} color="black" />,
+        headerTitle : () => <Text style={styles.title} >Add Template</Text>
+    
+    }}
+    />
 
   </Stack>;
 }

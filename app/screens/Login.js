@@ -37,6 +37,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    router.replace('/(tabs)/Home')
     let valid = true;
 
     if (username.trim() === "") {
