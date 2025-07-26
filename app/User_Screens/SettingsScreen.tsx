@@ -1,16 +1,15 @@
 import { View,Text,ScrollView, SafeAreaView, } from "react-native";
 
 
-function Home(){
+function SettingsScreen(){
 
 
 return(
     <SafeAreaView>
-
 
     </SafeAreaView>
 
 )
 }
 
-export default Home;
+export default SettingsScreen;

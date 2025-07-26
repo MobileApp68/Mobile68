@@ -1,158 +1,90 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Entypo from '@expo/vector-icons/Entypo';
-import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Header from '../components/Header';
-import { router } from 'expo-router';
+import React from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from "expo-router";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { fill } from '@/eslint.config';
 
-const livestock = () => {
+export default function Livestock() {
+  
+
   return (
-    <View style={styles.container} >
 
-      <Header />
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>
+        🐄 Livestock Management
+        </Text>
 
-      <ScrollView>
-        <View style={styles.live} >
-          <View style={styles.liveOne}>
-            <FontAwesome name="calculator" size={24} color="#2D5A3D" />
-            <View style={{paddingTop: 5, alignItems: 'center' }} >
-              <Text>Start Live</Text>
-              <Text>Session</Text>            
-            </View>
-
-          </View>
-
-          <View style={styles.liveOne}>
-            <FontAwesome name="newspaper-o" size={24} color="#2D5A3D" />
-            <View style={{paddingTop: 5, alignItems: 'center' }} >
-              <Text>Create Bulk</Text>
-              <Text>Record</Text>            
-            </View>
-            
-          </View>
-
-        </View>
-
-        <View style={styles.mainContent} >
-          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') } >
-            <View style={styles.might}>
-              <View  style= {styles.adjust}>
-                <AntDesign name="tags" size={24} color="#2D5A3D"/>
-                <Text>Individual Animals</Text>
-              </View>
-              <Entypo  name="chevron-right" size={24} color="#2D5A3D" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={ () => router.push('/screens/NewTemplate') }>
-            <View style={styles.might}>
-              <View style= {styles.adjust}>
-                <MaterialCommunityIcons name="clipboard-list" size={24} color="#2D5A3D" />
-                <Text>Record Templates</Text>       
-              </View>   
-              <Entypo name="chevron-right" size={24} color="#2D5A3D" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
-            <View style={styles.might}>
-              <View style= {styles.adjust}>
-                <Ionicons name="brush-sharp" size={24} color="#2D5A3D" />
-                <Text>Live Sessions</Text>
-              </View>
-              <Entypo name="chevron-right" size={24} color="#2D5A3D" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={ () => router.push('/screens/NewAnimal') }>
-            <View style={styles.might}>
-              <View style= {styles.adjust}>
-                <Entypo name="back-in-time" size={24} color="#2D5A3D" />
-                <Text>Activity</Text> 
-              </View> 
-              <Entypo name="chevron-right" size={24} color="#2D5A3D" />         
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={ () => router.push('/screens/NewFeed') }>
-            <View style={styles.might}>
-              <View style= {styles.adjust}>
-                <SimpleLineIcons name="basket-loaded" size={24} color="#2D5A3D" />
-                <Text>Feed Plans</Text>  
-              </View>
-              <Entypo name="chevron-right" size={24} color="#2D5A3D" />        
-            </View>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.sessionbox}>
+        <Text style={styles.sessiontext}>
+          Livestock
+        </Text>
+        <Text style={styles.sessiontext}>
+         Session
+        </Text>
+      </View>
 
 
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/User_Screens/ViewLivestock")}
+      >
+        <Text style={styles.buttonText}>📋 View Livestock</Text>
+      </Pressable>
 
-
-
-
-
-
-
-
-
-      </ScrollView> 
-    </View>
-  )
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/User_Screens/CreateLivestock")}
+      >
+        <Text style={styles.buttonText}>➕ Add New Livestock</Text>
+      </Pressable>
+      
+    </SafeAreaView>
+  );
 }
 
-export default livestock
-
 const styles = StyleSheet.create({
-  container: {
+  container: { 
     flex: 1,
-    backgroundColor: '#F5F5F5'
-  },
-  live: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    gap: 4,
-    paddingBottom: 20,
-  } ,
-  liveOne: {
-    borderWidth: 1,
-    flex: 1,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
+    padding: wp("2%"),
+    backgroundColor: '#F4F1F1'
+     },
+
   header: {
-    paddingTop:30,
-    paddingHorizontal:10,
-    backgroundColor: 'grey',
-    height: 80,
-    marginBottom: 20,
-  },
-  three:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 5,
-  },
-  mainContent: {
-    gap: 10
-  },
-  might: {
-    borderWidth: 1,
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 9,
-    paddingLeft: 9,
-    paddingRight: 9
-  },
-  adjust: {
-    flexDirection: 'row',
-    gap: 9
+    fontSize: wp("5%"),
+    fontWeight: 'bold',
+    marginBottom: hp("2%"),
+    textAlign:"center"
+   },
 
-  }
+   sessionbox:{
+    borderRadius: wp("5%"),
+    borderWidth: wp("0.7%"),
+    padding:wp("2%"),
+    alignItems:"center",
+    height:hp("35%"),
+    justifyContent:"center",
 
-})
+   },
+
+   sessiontext:{
+    fontWeight:"bold",
+    fontSize:wp("10%"),
+    textAlign:"center",
+
+   },
+
+  button: {
+    backgroundColor: 'rgba(10, 125, 143, 0.5)',
+    padding: wp("5%"),
+    borderRadius: wp("5%"),
+    marginVertical: hp("2%"),
+    borderWidth: wp("0.7%"),
+  },
+
+  buttonText: { 
+    fontSize: wp("5%"), 
+    fontWeight: '500'
+   },
+
+});

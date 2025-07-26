@@ -1,77 +1,159 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Header from '../components/Header';
-import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { View, Text, Pressable, FlatList, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput } from 'react-native-paper';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useRouter } from 'expo-router'; // 🧭 for screen navigation
 
+type Work = {
+  id: string;
+  title: string;
+  done: boolean;
+};
 
+const initialTasks: Work[] = [
+  { id: '1', title: 'Water the crops', done: false },
+  { id: '2', title: 'Feed the animals', done: false },
+  { id: '3', title: 'Inspect fencing', done: false },
+  { id: '4', title: 'Clean animal pens', done: false },
+  { id: '5', title: 'Harvest ripe produce', done: false },
+  { id: '6', title: 'Update farm records', done: false },
+];
 
-const tasks = () => {
+function Tasks() {
+  const [work, setWork] = useState<Work[]>(initialTasks);
+  const [showCompletedOnly, setShowCompletedOnly] = useState(false);
+  const [notes, setNotes] = useState("");
+  const router = useRouter();
+
+  const toggleTask = (id: string) => {
+    const updated = work.map((task) =>
+      task.id === id ? { ...task, done: !task.done } : task
+    );
+    setWork(updated);
+  };
+
+  const renderItem = ({ item }: { item: Work }) => (
+    <Pressable
+      onPress={() => toggleTask(item.id)}
+      style={[
+        styles.button,
+        { backgroundColor: item.done ? '#c8e6c9' : '#fff' }
+      ]}
+    >
+      <Text style={styles.text}>
+        {item.done ? '✅' : '⬜'} {item.title}
+      </Text>
+    </Pressable>
+  );
+
+  const filteredTasks = showCompletedOnly ? work.filter(t => t.done) : work;
+
   return (
-    <View style={styles.container} >
-      
-      <Header/>
+    <SafeAreaView style={styles.container}>
+      <Text style={[styles.text, { textAlign: "center", marginBottom: hp("1%") }]}>
+        🧑‍🌾 TASKS
+      </Text>
 
-      <View style={styles.search} >
-        <TextInput style={styles.filter} placeholder='Filter your Tasks' />
-        <View>
-          <FontAwesome name="toggle-on" size={24} color="black" />
-        </View>
+      {/* 🧭 Top Navigation Buttons */}
+      <View style={styles.topButtons}>
+        <Pressable
+          style={styles.topButton}
+          onPress={() => setShowCompletedOnly(prev => !prev)}
+        >
+          <Text style={styles.buttonText}>
+            {showCompletedOnly ? '📋 Show All Tasks' : '✅ Completed Tasks'}
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.topButton}
+          onPress={() => router.push('/User_Screens/CreateTask')}
+        >
+          <Text style={styles.buttonText}>➕ Create New Task</Text>
+        </Pressable>
       </View>
 
-      <View style = {styles.perfect}>
-        <TouchableOpacity onPress={ ()=> router.push('/screens/NewTemplate') } style={styles.button} >
-          <Text style={styles.buttonText}>Create New Template</Text>
-        </TouchableOpacity>
-      
-      </View>
+      {/* 📋 Task List */}
+      <FlatList
+        data={filteredTasks}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: hp("2%") }}
+      />
 
-
-
-
-    </View>
-  )
+      {/* 📝 Text Input Area */}
+      <Text style={styles.textLabel}>📝 Additional Task Notes</Text>
+      <TextInput
+        mode="outlined"
+        placeholder="Describe additional tasks in detail..."
+        value={notes}
+        onChangeText={setNotes}
+        multiline
+        style={styles.textInput}
+      />
+    </SafeAreaView>
+  );
 }
-
-export default tasks
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
+    padding: wp("4%"),
+    backgroundColor: '#f4f4f4',
   },
-  filter: {
-    borderWidth:1,
-    height: 40,
-    flex: 2
-  },
-  search: {
+
+  topButtons: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    gap:5
+    justifyContent: 'space-between',
+    marginBottom: hp("2%"),
   },
-  button: {
-    backgroundColor: '#2D5A3D',
-    padding: 15,
-    borderRadius: 6,
+
+  topButton: {
+    flex: 1,
+    backgroundColor: "#00796B",
+    marginHorizontal: wp("1%"),
+    paddingVertical: hp("1.5%"),
+    borderRadius: wp("2%"),
     alignItems: 'center',
-    marginTop: 20,
-  
   },
+
   buttonText: {
-    color: 'white',
-    fontSize: 18,
+    color: "#fff",
+    fontSize: wp("4%"),
     fontWeight: 'bold',
   },
-  perfect : {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 10,
-    marginBottom: 20
-  }
 
-})
+  button: {
+    padding: wp("3%"),
+    marginVertical: hp("1%"),
+    borderRadius: wp("3%"),
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.3)',
+  },
+
+  text: {
+    fontSize: wp("4.5%"),
+    fontWeight: 'bold',
+    color: "#333",
+  },
+
+  textLabel: {
+    fontSize: wp("4%"),
+    marginTop: hp("2%"),
+    marginBottom: hp("1%"),
+    fontWeight: 'bold',
+    color: '#555',
+  },
+
+  textInput: {
+    flex: 1,
+    backgroundColor: '#fff',
+    fontSize: wp("4%"),
+    textAlignVertical: 'top',
+    minHeight: hp("20%"),
+  },
+});
+
+export default Tasks;

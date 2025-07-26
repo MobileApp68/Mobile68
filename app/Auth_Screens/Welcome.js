@@ -30,7 +30,7 @@ function Welcome() {
           </Text>
           <Button
             title="Login"
-            onPress={() => router.replace("/screens/Login")}
+            onPress={() => router.push("/Auth_Screens/Login")}
           />
         </View>
 
@@ -38,7 +38,7 @@ function Welcome() {
           <Text style={styles.headertext}>New to Agriwebb?</Text>
           <Button
             title="Register"
-            onPress={() => router.replace("/screens/Register")}
+            onPress={() => router.push("/Auth_Screens/Register")}
           />
         </View> 
       </ScrollView>

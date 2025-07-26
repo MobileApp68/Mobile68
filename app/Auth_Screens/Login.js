@@ -28,7 +28,7 @@ import pic from "../../assets/images/agriMask.png";
 
 function Login() {
   const [hide, setHide] = useState(true);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [userError, setUserError] = useState("");
@@ -37,15 +37,28 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    router.replace('/(tabs)/Home')
+  
+    router.replace("/(tabs)/livestock");
+    
+
     let valid = true;
 
-    if (username.trim() === "") {
+    const emailRegex = /\S+@\S+\.\S+/;
+
+   
+    if (email.trim() === "") {
       setUserError("Email is required");
       valid = false;
-    } else {
-      setUserError("");
+    } 
+    else if (!emailRegex.test(email)) {
+      setUserError("Enter full Email Address");
+      valid = false;       
     }
+     else {
+
+      setUserError("");
+
+    };
 
     if (password.trim() === "") {
       setPassError("Password is required");
@@ -57,30 +70,40 @@ function Login() {
     if (!valid) return;
 
     try {
-      setLoading(true);
 
-      const response = await axios.post("http://192.168.8.194:8080/api/auth/login", {
-        username,
-        password
-      });
+  setLoading(true);
 
-      const token = response.data.token;
+  const response = await fetch("http://192.168.8.194:8080/api/auth/login", {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email: email.trim().toLowerCase(), password })
+  });
 
-      // Store token in AsyncStorage
-      await AsyncStorage.setItem("token", token);
 
-      // Navigate to Main screen (home/dashboard)
-      router.replace("/(tabs)/Home");
+  if (!response.ok) {
+      setPassError("Invalid email or password");
+      return;
+  }
+  
 
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setPassError("Invalid email or password");
-      } else {
-        Alert.alert("Login Failed", "Something went wrong. Please try again.");
-      }
-    } finally {
-      setLoading(false);
-    }
+  const data = await response.json();
+  const token = data.token;
+
+  // Store token in AsyncStorage
+  await AsyncStorage.setItem("token", token);
+
+  // Navigate to Main screen (home/dashboard)
+  router.replace("/(tabs)/livestock");
+
+} catch (error) {
+  console.error("Login error:", error);
+  Alert.alert("Login Failed", "Something went wrong. Please try again.");
+} finally {
+  setLoading(false);
+}
+
   };
 
   return (
@@ -99,12 +122,12 @@ function Login() {
             <Icon name="email" size={24} color="gray" />
             <TextInput
               style={styles.txtin}
-              placeholder="Username"
-              value={username}
+              placeholder="Email Address"
+              value={email}
               autoCapitalize="none"
               keyboardType="email-address"
               onChangeText={(text) => {
-                setUsername(text);
+                setEmail(text);
                 if (userError) setUserError("");
               }}
             />

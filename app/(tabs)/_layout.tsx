@@ -10,14 +10,16 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const _layout = () => {
   return (
     <Tabs>
+        
         <Tabs.Screen 
         name='Home'
         options={{
             title: 'Home',
             headerShown: false,
-            tabBarIcon: ({color}) => <MaterialIcons name="home" size={24} color="#2D5A3D" />
+            tabBarIcon: ({color}) => <FontAwesome name="home" size={24} color="#2D5A3D" /> 
         }}
         />
+
         <Tabs.Screen 
         name='maps'
         options={{

@@ -19,16 +19,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Register = () => {
 
   const [username, setUsername] = useState("");
-    const [hide, setHide] = useState(true);
-    const [loading, setLoading] = useState(false);
+  const [hide, setHide] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("FARMER");
+  
 
   const API_URL = "http://192.168.8.194:8080/api/auth/register";
 
   const handleRegister = async () => {
     router.replace('/(tabs)/Home')
+
+
     if (!username.trim()) {
       Alert.alert("Missing Field", "Please enter a username");
       return;
@@ -59,24 +61,26 @@ const Register = () => {
       setLoading(false);
       const response = await axios.post(API_URL, {
         username: username.trim(),
-        email: email.trim(),
+        email: email.trim().toLowerCase(),
         password,
-        roles: [role], // Send as array: ["FARMER"] or ["ADMIN"]
       });
 
       if (response.status === 200 || response.status === 201) {
         router.replace("/screens/Login");
+
         Alert.alert("Success", "Registration complete!", [
           {
             text: "Go to Login",
-            onPress: () => router.replace("/screens/Login"),
+            onPress: () => router.replace("/Auth_Screens/Login"),
           },
         ]);
-      } else {
+      }
+       else {
         setLoading(false);
         Alert.alert("Failed", "Something went wrong");
       }
-    } catch (error) {
+    } 
+    catch (error) {
       const message =
         error.response?.data?.message ||
         error.message ||
@@ -129,18 +133,6 @@ const Register = () => {
         <Pressable onPress={() => setHide(!hide)} style={{ paddingHorizontal: wp("2%") }}>
            <Icon name={hide ? "visibility-off" : "visibility"} size={24} color="gray" />
         </Pressable>
-        </View>
-
-        <View style={styles.textContainer}>
-        <Text style={styles.label}>Select Role:</Text>
-        <Picker
-          selectedValue={role}
-          onValueChange={(itemValue) => setRole(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Farmer" value="FARMER" />
-          <Picker.Item label="Admin" value="ADMIN" />
-        </Picker>
         </View>
 
         
