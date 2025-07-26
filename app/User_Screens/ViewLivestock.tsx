@@ -1,93 +1,149 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import React, { useState } from 'react';
+import { router } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  Alert,
+  ActivityIndicator,
+  TextInput,
+} from 'react-native';
 
+const ViewLivestock = () => {
+  const [livestockData, setLivestockData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [dbId, setDbId] = useState('');
+  const [inputDone, setInputDone] = useState(false); // control view switching
 
+  const fetchLivestock = async () => {
+    if (!dbId.trim()) {
+      Alert.alert('Input Required', 'Enter Livestock ID.');
+      return;
+    }
 
-type Livestock = {
-  id: string;
-  animalType: string;
-  breed: string;
-  tagId: string;
-  age: string;
-  healthStatus: string;
-  notes: string;
-};
+    setLoading(true);
+    try {
+      const token = await AsyncStorage.getItem("token");
 
-function ViewLivestock() {
-  const [livestockList, setLivestockList] = useState<Livestock[]>([]);
+      const response = await fetch('http://192.168.8.114:8080/api/livestock/get', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dbId, token }),
+      });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('http://your-backend-url/api/livestock');
-        const data = await res.json();
-        setLivestockList(data);
-      } 
-      catch (error) {
-        console.error('Failed to load livestock data', error);
+      if (response.ok) {
+        const data = await response.json();
+        setLivestockData(data);
+        setInputDone(true); // switch to detail view
+      } else {
+        Alert.alert('Error', 'Failed to fetch livestock data.');
       }
-    };
+    } catch (error) {
+      Alert.alert('Network Error', 'Unable to reach the server.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, []);
-
-  const renderItem = ({ item }: { item: Livestock }) => (
-    <View style={styles.card}>
-      <Text style={styles.cardTitle}>{item.animalType} - {item.breed}</Text>
-      <Text style={styles .textview}>Tag ID: {item.tagId}</Text>
-      <Text style={styles .textview}>Age: {item.age}</Text>
-      <Text style={styles .textview}>Health: {item.healthStatus}</Text>
-      <Text style={styles .textview}>Notes: {item.notes}</Text>
+  const renderField = (label, value) => (
+    <View style={styles.fieldBox}>
+      <Text style={styles.label}>{label}</Text>
+      <ScrollView style={styles.valueBox} nestedScrollEnabled>
+        <Text style={styles.value}>{value || '—'}</Text>
+      </ScrollView>
     </View>
   );
 
+  // Show loading spinner
+  if (loading) {
+    return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
+  }
+
+  // Initial screen: Ask for DBID
+  if (!inputDone) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>🔍 Enter Livestock DBID</Text>
+        <TextInput
+          placeholder="Enter DBID"
+          style={styles.input}
+          value={dbId}
+          onChangeText={setDbId}
+        />
+        <Pressable style={styles.fetchButton} onPress={fetchLivestock}>
+          <Text style={styles.buttonText}>Fetch Livestock</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  // Show data if fetched
+  if (!livestockData) return null;
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>📋 Your Livestock</Text>
-      <FlatList
-        data={livestockList}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 20 }}
-      />
-    </SafeAreaView>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>🐄 Livestock Details</Text>
+
+      {renderField('Livestock ID', livestockData.dbId)}
+      {renderField('Animal Type', livestockData.animalType)}
+      {renderField('Quantity', livestockData.quantity)}
+      {renderField('Breed', livestockData.breed)}
+      {renderField('Tag ID', livestockData.tagId)}
+      {renderField('Age', livestockData.age)}
+      {renderField('Health Status', livestockData.healthStatus)}
+      {renderField('Notes', livestockData.notes)}
+
+      <Pressable
+        style={styles.updateButton}
+        onPress={() => router.push({ pathname: 'UpdateLivestock', params: { dbId } })}
+      >
+        <Text style={styles.buttonText}>✏️ Update</Text>
+      </Pressable>
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: wp("2%")
-   },
+  container: { padding: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
 
-  header: {
-     fontSize: wp("5%"), 
-    fontWeight: "bold", 
-    marginVertical: hp("1.5%"),
-    textAlign:"center"
-
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: wp("2%"),
-    marginVertical: hp("1.5%"),
-    borderRadius: wp("2%"),
-    borderWidth: wp("1%"),
+  input: {
+    borderWidth: 1,
     borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 15,
   },
 
-  textview:{
-    fontSize: wp("5%"),
-    marginVertical:hp("1.5%"),
+  fetchButton: {
+    backgroundColor: '#a5d6a7',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
   },
 
-  cardTitle: { 
-    fontWeight: 'bold',
-     fontSize: wp("5%"),
-    marginBottom: hp("1.5%"),
-   },
+  fieldBox: { marginBottom: 15 },
+  label: { fontSize: 16, fontWeight: '600', marginBottom: 4 },
+  valueBox: {
+    maxHeight: 100,
+    padding: 10,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 8,
+  },
+  value: { fontSize: 16 },
+
+  updateButton: {
+    backgroundColor: '#cdeafe',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 18, fontWeight: 'bold' },
 });
 
 export default ViewLivestock;

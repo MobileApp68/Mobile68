@@ -37,9 +37,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-  
-    router.replace("/(tabs)/livestock");
-    
+      
 
     let valid = true;
 
@@ -73,7 +71,7 @@ function Login() {
 
   setLoading(true);
 
-  const response = await fetch("http://192.168.8.194:8080/api/auth/login", {
+  const response = await fetch("http://192.168.8.114:8080/api/auth/login", {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"

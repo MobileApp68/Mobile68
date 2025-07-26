@@ -19,27 +19,29 @@ function First() {
   }
 
   useEffect(() => {
-    let isMounted = true; // Helps prevent state updates on unmounted screen
+    let isMounted = true; 
 
     const checkToken = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
 
         if (!token) {
-          return isMounted && router.replace("/screens/Welcome");
+          return isMounted && router.replace("/Auth_Screens/Welcome");
         }
 
         const response = await fetchWithTimeout("http://10.112.221.154:8080/api/auth/autologin", {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token }),
-        }, 5000); // 5 seconds timeout
+        }, 5000);
 
         if (isMounted) {
           if (response.ok) {
+
             router.replace("/(tabs)/livestock");
-          } else {
-            router.replace("/screens/Welcome");
+          } 
+          else {
+            router.replace("/Auth_Screens/Welcome");
           }
         }
       } catch (error) {

@@ -25,10 +25,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
   
 
-  const API_URL = "http://192.168.8.194:8080/api/auth/register";
+  const API_URL = "http://192.168.8.114:8080/api/auth/register";
 
   const handleRegister = async () => {
-    router.replace('/(tabs)/Home')
 
 
     if (!username.trim()) {
@@ -66,8 +65,7 @@ const Register = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        router.replace("/screens/Login");
-
+       
         Alert.alert("Success", "Registration complete!", [
           {
             text: "Go to Login",

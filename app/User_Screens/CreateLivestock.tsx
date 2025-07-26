@@ -1,26 +1,31 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Alert, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
 function CreateLivestock() {
-  const [DB_id, setDB_id] = useState('');
+  const [dbId, setDB_id] = useState('');
   const [animalType, setAnimalType] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const [quantity, setQuantity] = useState();
   const [breed, setBreed] = useState('');
   const [tagId, setTagId] = useState('');
-  const [age, setAge] = useState('');
+  const [age, setAge] = useState();
   const [healthStatus, setHealthStatus] = useState('');
   const [notes, setNotes] = useState('');
 
   const handleSubmit = async () => {
 
-    const data = { DB_id: DB_id.trim().toLowerCase, animalType, quantity, breed, tagId, age, healthStatus, notes };
+      const token = await AsyncStorage.getItem("token");
+
+    const data = { dbId: dbId.trim().toLowerCase(), animalType, quantity, breed, tagId, age, healthStatus, notes, ownerToken: token};
+    
+console.log("dbid is"+dbId);
 
     try {
-      const response = await fetch('http://your-backend-url/api/livestock', {
+      const response = await fetch('http://192.168.8.114:8080/api/livestock/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -28,10 +33,12 @@ function CreateLivestock() {
 
       if (response.ok) {
         Alert.alert('Success', 'Livestock added successfully!');
-      } else {
+      } 
+      else {
         Alert.alert('Error', 'Failed to add livestock.');
       }
-    } catch (error) {
+    }
+     catch (error) {
       Alert.alert('Network Error', 'Could not reach server.');
     }
   };
@@ -42,7 +49,7 @@ function CreateLivestock() {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Text style={styles.header}>➕ Add New Livestock</Text>
 
-      <TextInput style={styles.input} placeholder="Livestock ID (Unique ID)" value={DB_id} onChangeText={setDB_id} />
+      <TextInput style={styles.input} placeholder="Livestock ID (Unique ID)" value={dbId} onChangeText={setDB_id} />
       <TextInput style={styles.input} placeholder="Animal Type (e.g., Cow)" value={animalType} onChangeText={setAnimalType} />
       <TextInput style={styles.input} placeholder="Number Of Animals (e.g.,1, 10)" value={quantity} onChangeText={setQuantity} keyboardType="numeric" />
       <TextInput style={styles.input} placeholder="Breed" value={breed} onChangeText={setBreed} />
