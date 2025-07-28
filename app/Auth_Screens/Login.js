@@ -1,28 +1,27 @@
 import {
-  View,
-  Text,
-  StatusBar,
-  ScrollView,
-  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
   Pressable,
   SafeAreaView,
-  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
   TextInput,
-  KeyboardAvoidingView,
-  Alert,
-  ActivityIndicator,
+  View,
 } from "react-native";
 
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useState } from "react";
-import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from "expo-router";
+import { useState } from "react";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
-import pic from "../../assets/images/agriMask.png";
+import BASE_URL from "../../Utils/Api";
+import pic from "../../assets/images/Stock-Valley.png";
 
 
 
@@ -38,7 +37,6 @@ function Login() {
 
   const handleSubmit = async () => {
       
-
     let valid = true;
 
     const emailRegex = /\S+@\S+\.\S+/;
@@ -71,7 +69,7 @@ function Login() {
 
   setLoading(true);
 
-  const response = await fetch("http://192.168.8.114:8080/api/auth/login", {
+  const response = await fetch(BASE_URL+"/api/auth/login", {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -93,7 +91,7 @@ function Login() {
   await AsyncStorage.setItem("token", token);
 
   // Navigate to Main screen (home/dashboard)
-  router.replace("/(tabs)/livestock");
+  router.replace("/(tabs)/Home");
 
 } catch (error) {
   console.error("Login error:", error);
@@ -108,12 +106,13 @@ function Login() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
           <View style={styles.img}>
             <Image source={pic} style={{ width: wp("17%"), height: hp("8%"), resizeMode: "contain" }} />
-            <Text style={{ fontSize: wp("7%"), marginHorizontal: wp("2%") }}>AgriWebb</Text>
+            <Text style={{ fontSize: wp("7%"), marginHorizontal: wp("2%") }}>Stock Valley</Text>
           </View>
 
-          <Text style={styles.headertext}>Sign in with your AgriWebb account</Text>
+          <Text style={styles.headertext}>Sign In With Your Stock Valley Account</Text>
 
           {/* Username field*/}
           <View style={[styles.usernamearea, userError ? styles.errorBorder : null]}>
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: hp("7%"),
-    paddingHorizontal: wp("25%"),
+    paddingHorizontal: wp("18%"),
   },
 
   headertext: {

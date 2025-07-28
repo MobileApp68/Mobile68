@@ -1,4 +1,3 @@
-import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -15,6 +14,9 @@ import {
 } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import BASE_URL from "../../Utils/Api";
+
+
 
 const Register = () => {
 
@@ -25,7 +27,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   
 
-  const API_URL = "http://192.168.8.114:8080/api/auth/register";
+  const API_URL = BASE_URL+"/api/auth/register";
 
   const handleRegister = async () => {
 
@@ -94,8 +96,9 @@ const Register = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.inner}>
-        <Text style={styles.title}>Register</Text>
+        <View style={{marginVertical:hp("2.5%")}}></View>
 
+        <Text style={styles.title}>Register</Text>
 
          <View style={styles.textContainer}>
           <Icon name="person" size={24} color="gray" />

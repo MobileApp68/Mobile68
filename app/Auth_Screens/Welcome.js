@@ -19,41 +19,32 @@ import {
 function Welcome() {
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{marginVertical:hp("2.5%")}}></View>
+
       <View style={styles.header}>
-        <Text style={styles.headertext}>Welcome To Agriwebb</Text>
+        <Text style={styles.headertext}>Welcome To Stock Valley</Text>
       </View>
 
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+
+        <Pressable  onPress={() => router.push("/Auth_Screens/Login")}>
         <View style={styles.acview}>
           <Text style={styles.headertext}>
-            Already have an Agriwebb account?
+            Sign In
           </Text>
-          <Button
-            title="Login"
-            onPress={() => router.push("/Auth_Screens/Login")}
-          />
+          
         </View>
+        </Pressable>
 
+          <Pressable onPress={() => router.push("/Auth_Screens/Register")}>
          <View style={styles.acview}>
-          <Text style={styles.headertext}>New to Agriwebb?</Text>
-          <Button
-            title="Register"
-            onPress={() => router.push("/Auth_Screens/Register")}
-          />
+          <Text style={styles.headertext}>Sign Up</Text>
+          
         </View> 
+        </Pressable>
+
       </ScrollView>
-
-      <View style={styles.footer}>
-
-        <View style={styles.prsble}>
-          <Pressable
-            onPress={() => BackHandler.exitApp()}
-            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
-          >
-            <Text style={styles.headertext}>EXIT</Text>
-          </Pressable>
-        </View>
-      </View>
     </SafeAreaView>
   );
 }
@@ -71,7 +62,7 @@ const styles = StyleSheet.create({
   },
 
   headertext: {
-    fontSize: hp("2.5%"),
+    fontSize: hp("3%"),
     color: "rgba(144, 109, 6, 0.5)",
     fontWeight: "bold",
     textAlign: "center",
@@ -83,8 +74,8 @@ const styles = StyleSheet.create({
     marginHorizontal: wp("10%"),
     alignItems: "center",
     backgroundColor:"rgba(26, 5, 67, 0.5)",
-    borderRadius:hp("5%"),
-    height:hp("15%"),
+    borderRadius:hp("3%"),
+    height:hp("10%"),
     justifyContent: "center",
   },
 

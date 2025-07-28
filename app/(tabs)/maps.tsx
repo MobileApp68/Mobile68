@@ -1,4 +1,4 @@
-{/*
+
 import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
@@ -15,6 +15,9 @@ import MapView, { Marker, MapPressEvent } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BASE_URL from '@/Utils/Api';
+
 
 function Maps() {
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
@@ -35,7 +38,7 @@ function Maps() {
     try {
       const token = await AsyncStorage.getItem("token");
 
-    const response = await fetch("http://192.168.8.194:8080/api/farms?token="+token);
+    const response = await fetch(BASE_URL+"/api/farms?token="+token);
 
       if (response.ok) {
         const farm = await response.json();
@@ -56,7 +59,7 @@ function Maps() {
           setUserLocation(coords);
         }
       } else {
-        // If backend gives 404 or error, use GPS
+
         const location = await Location.getCurrentPositionAsync({});
         const coords = {
           latitude: location.coords.latitude,
@@ -98,7 +101,7 @@ function Maps() {
     }
 
     try {
-      const response = await fetch('http://192.168.8.194:8080/api/farms', {
+      const response = await fetch(BASE_URL+'/api/farms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,5 +228,3 @@ const styles = StyleSheet.create({
 });
 
 export default Maps;
-*/}
-

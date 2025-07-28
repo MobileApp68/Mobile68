@@ -1,13 +1,15 @@
-import { View, Image, SafeAreaView, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { useEffect, useState } from "react";
-import { router } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-import pic from "../assets/images/agriMask.png";
+import pic from "../assets/images/Stock-Valley.png";
+import BASE_URL from "../Utils/Api";
+
 
 function First() {
-  const [loading, setLoading] = useState(true); // For showing spinner
+  const [loading, setLoading] = useState(true); 
 
   function fetchWithTimeout(resource, options = {}, timeout = 5000) {
     return Promise.race([
@@ -29,7 +31,7 @@ function First() {
           return isMounted && router.replace("/Auth_Screens/Welcome");
         }
 
-        const response = await fetchWithTimeout("http://10.112.221.154:8080/api/auth/autologin", {
+        const response = await fetchWithTimeout(BASE_URL+"/api/auth/autologin", {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token }),
@@ -45,7 +47,7 @@ function First() {
           }
         }
       } catch (error) {
-        console.error("Auto-login failed:", error.message);
+
         if (isMounted) {
           router.replace("/Auth_Screens/Welcome");
         }

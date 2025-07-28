@@ -24,17 +24,23 @@ export default function Livestock() {
         </Text>
       </View>
 
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/User_Screens/Livestock/LivestockID")}
+      >
+        <Text style={styles.buttonText}>📋 View All Livestock IDs</Text>
+      </Pressable>
 
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/User_Screens/ViewLivestock")}
+        onPress={() => router.push("/User_Screens/Livestock/ViewLivestock")}
       >
         <Text style={styles.buttonText}>📋 View Livestock</Text>
       </Pressable>
 
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/User_Screens/CreateLivestock")}
+        onPress={() => router.push("/User_Screens/Livestock/CreateLivestock")}
       >
         <Text style={styles.buttonText}>➕ Add New Livestock</Text>
       </Pressable>

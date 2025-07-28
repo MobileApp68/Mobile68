@@ -4,6 +4,8 @@ import { Alert, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, T
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BASE_URL from '../../../Utils/Api';
+
 
 
 function CreateLivestock() {
@@ -22,10 +24,9 @@ function CreateLivestock() {
 
     const data = { dbId: dbId.trim().toLowerCase(), animalType, quantity, breed, tagId, age, healthStatus, notes, ownerToken: token};
     
-console.log("dbid is"+dbId);
 
     try {
-      const response = await fetch('http://192.168.8.114:8080/api/livestock/create', {
+      const response = await fetch(BASE_URL+'/api/livestock/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
