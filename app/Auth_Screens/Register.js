@@ -60,11 +60,15 @@ const handleRegister = async () => {
 
   try {
     setLoading(true);
+
     const response = await axios.post(API_URL, {
-      username: username.trim(),
-      email: email.trim().toLowerCase(),
-      password,
-    });
+  username: username.trim(),
+  email: email.trim().toLowerCase(),
+  password
+}, {
+  timeout: 15000
+});
+
 
     if (response.status === 201||response.status === 200) {
       Alert.alert("Success", "Registration complete!", [
@@ -87,7 +91,7 @@ const handleRegister = async () => {
       error.response?.data?.message ||
       error.message ||
       "Server error. Try again.";
-    Alert.alert("Registration Failed", "Email Already Taken ");
+    Alert.alert("Registration Failed", message);
     return;
   }
 };

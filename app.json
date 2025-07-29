@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Group68",
-    "slug": "Group68",
+    "name": "Stock Valley",
+    "slug": "stock-valley",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Stock-Valley.png",
     "scheme": "group68",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,8 +12,13 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB0zx4bbBG5oxixIuUS5VteAcn0a0rwWFM"
+        }
+      },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/Stock-Valley.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -22,7 +27,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/agriMask.png"
+      "favicon": "./assets/images/Stock-Valley.png"
     },
     "plugins": [
       "expo-router",

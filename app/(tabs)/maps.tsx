@@ -130,6 +130,7 @@ function Maps() {
     <SafeAreaView style={styles.container}>
       {userLocation && (
         <MapView
+         provider="google"
           style={styles.map}
           initialRegion={{
             latitude: userLocation.latitude,

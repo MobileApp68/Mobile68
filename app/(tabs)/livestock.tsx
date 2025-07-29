@@ -28,7 +28,7 @@ export default function Livestock() {
         style={styles.button}
         onPress={() => router.push("/User_Screens/Livestock/LivestockID")}
       >
-        <Text style={styles.buttonText}>📋 View All Livestock IDs</Text>
+        <Text style={styles.buttonText}>📋 View All Livestock Session IDs</Text>
       </Pressable>
 
       <Pressable

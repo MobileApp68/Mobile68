@@ -36,73 +36,94 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-      
-    let valid = true;
+  let valid = true;
+  const emailRegex = /\S+@\S+\.\S+/;
 
-    const emailRegex = /\S+@\S+\.\S+/;
-
-   
-    if (email.trim() === "") {
-      setUserError("Email is required");
-      valid = false;
-    } 
-    else if (!emailRegex.test(email)) {
-      setUserError("Enter full Email Address");
-      valid = false;       
-    }
-     else {
-
-      setUserError("");
-
-    };
-
-    if (password.trim() === "") {
-      setPassError("Password is required");
-      valid = false;
-    } else {
-      setPassError("");
-    }
-
-    if (!valid) return;
-
-    try {
-
-  setLoading(true);
-
-  const response = await fetch(BASE_URL+"/api/auth/login", {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email: email.trim().toLowerCase(), password })
-  });
-
-
-  if (!response.ok) {
-      setPassError("Invalid email or password");
-      setLoading(false);
-      return;
-  }
-  
-
-  const data = await response.json();
-  const token = data.token;
-
-  // Store token in AsyncStorage
-  await AsyncStorage.setItem("token", token);
-
-  // Navigate to Main screen (home/dashboard)
-  router.replace("/(tabs)/Home");
-
-} catch (error) {
-  
-  Alert.alert("Login Failed", "Something went wrong. Please try again.");
-} finally {
-  setLoading(false);
-}
-
+  // Validation (unchanged)
+  if (email.trim() === "") {
+    setUserError("Email is required");
+    valid = false;
+  } else if (!emailRegex.test(email)) {
+    setUserError("Enter full Email Address");
+    valid = false;       
+  } else {
+    setUserError("");
   };
 
+  if (password.trim() === "") {
+    setPassError("Password is required");
+    valid = false;
+  } else {
+    setPassError("");
+  }
+
+  if (!valid) return;
+
+  try {
+    setLoading(true);
+    
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+    const response = await fetch(`${BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        email: email.trim().toLowerCase(), 
+        password 
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      setPassError(errorData.message || "Invalid email or password");
+      return;
+    }
+
+    const data = await response.json();
+    const token = data.token;
+
+    if (!token) {
+      throw new Error("No token received");
+    }
+
+    // Store token with error handling
+    try {
+      await AsyncStorage.setItem("token", token);
+    } catch (storageError) {
+      console.error("Storage error:", storageError);
+      throw new Error("Failed to save login session");
+    }
+
+    // Navigate with error handling
+    try {
+      router.replace("/(tabs)/Home");
+      // Ensure navigation completes before setting loading to false
+      return; // Exit the function after navigation
+    } catch (navigationError) {
+      console.error("Navigation error:", navigationError);
+      throw new Error("Failed to navigate after login");
+    }
+
+  } catch (error) {
+    console.error("Login error:", error);
+    
+    if (error.name === 'AbortError') {
+      Alert.alert("Timeout", "Request took too long. Please try again.");
+    } else {
+      Alert.alert(
+        "Login Failed", 
+        "Something went wrong. Please try again."
+      );
+    }
+  } finally {
+    setLoading(false);
+  }
+};
   
   return (
     <SafeAreaView style={styles.container}>

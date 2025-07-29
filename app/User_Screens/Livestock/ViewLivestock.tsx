@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, router } from 'expo-router';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
@@ -146,6 +147,8 @@ const ViewLivestock = () => {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+              <View style={{marginVertical:hp("2.5%")}}></View>
+      
       <Text style={styles.title}>🐄 Livestock Details</Text>
       {renderField('Livestock ID', livestockData.dbId)}
       {renderField('Animal Type', livestockData.animalType)}

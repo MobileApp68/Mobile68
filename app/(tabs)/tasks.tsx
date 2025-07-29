@@ -30,35 +30,39 @@ type Task = {
 const CreateTask = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [notes, setNotes] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+
 
   // Fetch existing tasks
-  useEffect(() => {
+  const fetchTasks = async () => {
+    try {
+      setRefreshing(true);
+      const token = await AsyncStorage.getItem("token");
 
-    const fetchTasks = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-
-        const res = await fetch(BASE_URL + '/api/task/get',{
-          method:'POST',
-          headers: { 'Content-Type': 'text/plain' },
+      const res = await fetch(BASE_URL + '/api/task/get', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
         body: token,
       });
 
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data.tasks)) {
-            setTasks(data.tasks.map((task: any, index: number) => ({
-              id: task.id ?? String(index),
-              title: task.title,
-              selected: task.selected ?? false
-            })));
-            setNotes(data.additionalNotes ?? '');
-          }
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.tasks)) {
+          setTasks(data.tasks.map((task: any, index: number) => ({
+            id: task.id ?? String(index),
+            title: task.title,
+            selected: task.selected ?? false,
+          })));
         }
-      } catch (error) {
-        console.error('Fetch failed:', error);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching tasks", err);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
     fetchTasks();
   }, []);
 
@@ -135,11 +139,14 @@ const CreateTask = () => {
           <Text style={styles.title}>📝 Farm Task List</Text>
 
           <FlatList
-            data={tasks}
-            keyExtractor={(item) => item.id}
-            renderItem={renderTaskRow}
-            scrollEnabled={false}
-          />
+     data={tasks}
+       keyExtractor={(item) => item.id}
+      renderItem={renderTaskRow}
+       scrollEnabled={false}
+       refreshing={refreshing}
+       onRefresh={fetchTasks}
+/>
+
 
           <Pressable style={styles.addTaskBtn} onPress={addTask}>
             <Text style={styles.addTaskText}>➕ Add Task</Text>
