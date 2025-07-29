@@ -41,23 +41,26 @@ function First() {
           if (response.ok) {
 
             router.replace("/(tabs)/livestock");
+            setLoading(false);
           } 
           else {
             router.replace("/Auth_Screens/Welcome");
+            setLoading(false);
           }
         }
       } catch (error) {
 
         if (isMounted) {
           router.replace("/Auth_Screens/Welcome");
+          setLoading(false);
         }
       }
     };
 
     checkToken();
 
-    // Cleanup function
     return () => { isMounted = false; };
+    
   }, []);
 
   return (

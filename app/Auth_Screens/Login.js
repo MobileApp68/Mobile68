@@ -20,7 +20,7 @@ import { useState } from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import BASE_URL from "../../Utils/Api";
+import  BASE_URL  from "@/Utils/Api";
 import pic from "../../assets/images/Stock-Valley.png";
 
 
@@ -80,6 +80,7 @@ function Login() {
 
   if (!response.ok) {
       setPassError("Invalid email or password");
+      setLoading(false);
       return;
   }
   
@@ -94,7 +95,7 @@ function Login() {
   router.replace("/(tabs)/Home");
 
 } catch (error) {
-  console.error("Login error:", error);
+  
   Alert.alert("Login Failed", "Something went wrong. Please try again.");
 } finally {
   setLoading(false);
@@ -102,6 +103,7 @@ function Login() {
 
   };
 
+  
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
@@ -114,7 +116,7 @@ function Login() {
 
           <Text style={styles.headertext}>Sign In With Your Stock Valley Account</Text>
 
-          {/* Username field*/}
+
           <View style={[styles.usernamearea, userError ? styles.errorBorder : null]}>
             <Icon name="email" size={24} color="gray" />
             <TextInput
@@ -132,7 +134,6 @@ function Login() {
           {userError ? <Text style={styles.errorText}>{userError}</Text> : null}
 
 
-          {/* Password Field */}
           <View style={[styles.passarea, passError ? styles.errorBorder : null]}>
             <Icon name="lock-outline" size={24} color="gray" />
             <TextInput

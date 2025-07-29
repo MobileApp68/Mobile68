@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, ScrollView, Pressable, SafeAreaView } from 'react-native'
 import React from 'react'
+import { Alert, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { useRouter } from 'expo-router'
 
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import Entypo from '@expo/vector-icons/Entypo'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import Entypo from '@expo/vector-icons/Entypo'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
 
 
 const Menu = () => {
@@ -51,6 +52,22 @@ const Menu = () => {
             </View>
             <Entypo name="chevron-right" size={24} color="#2D5A3D" />
           </Pressable>
+
+          <Pressable style={styles.option}
+              onPress={async () => {
+               try {
+                await AsyncStorage.removeItem('token');
+                 router.replace('/Auth_Screens/Login'); 
+                } catch (error) {
+                 Alert.alert("Failed", "Something went wrong");
+                     }}}>
+                 <View style={styles.row}>
+               <Ionicons name="log-out" size={24} color="#2D5A3D" />
+                <Text>Logout</Text>
+                </View>
+                 <Entypo name="chevron-right" size={24} color="#2D5A3D" />
+          </Pressable>
+
 
         </View>
       </ScrollView>

@@ -18,7 +18,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BASE_URL from '@/Utils/Api';
 
-
 function Maps() {
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [farmLocation, setFarmLocation] = useState<{ latitude: number; longitude: number } | null>(null);

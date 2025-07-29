@@ -14,7 +14,8 @@ import {
 } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import BASE_URL from "../../Utils/Api";
+
+import { BASE_URL } from "@/Utils/Api";
 
 
 
@@ -27,71 +28,70 @@ const Register = () => {
   const [password, setPassword] = useState("");
   
 
-  const API_URL = BASE_URL+"/api/auth/register";
 
-  const handleRegister = async () => {
+const API_URL = BASE_URL + "/api/auth/register";
 
+const handleRegister = async () => {
+  if (!username.trim()) {
+    Alert.alert("Missing Field", "Please enter a username");
+    return;
+  }
 
-    if (!username.trim()) {
-      Alert.alert("Missing Field", "Please enter a username");
-      return;
-    }
+  if (!email.trim()) {
+    Alert.alert("Missing Field", "Please enter an email");
+    return;
+  }
 
-    if (!email.trim()) {
-      Alert.alert("Missing Field", "Please enter an email");
-      return;
-    }
+  const emailRegex = /\S+@\S+\.\S+/;
+  if (!emailRegex.test(email)) {
+    Alert.alert("Invalid Email", "Please enter a valid email address");
+    return;
+  }
 
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-      Alert.alert("Invalid Email", "Please enter a valid email address");
-      return;
-    }
+  if (!password.trim()) {
+    Alert.alert("Missing Field", "Please enter a password");
+    return;
+  }
 
-    if (!password.trim()) {
-      Alert.alert("Missing Field", "Please enter a password");
-      return;
-    }
+  if (password.length < 6) {
+    Alert.alert("Weak Password", "Password must be at least 6 characters long");
+    return;
+  }
 
-    if (password.length < 6) {
-      Alert.alert("Weak Password", "Password must be at least 6 characters long");
-      return;
-    }
+  try {
+    setLoading(true);
+    const response = await axios.post(API_URL, {
+      username: username.trim(),
+      email: email.trim().toLowerCase(),
+      password,
+    });
 
-    try {
-      setLoading(false);
-      const response = await axios.post(API_URL, {
-        username: username.trim(),
-        email: email.trim().toLowerCase(),
-        password,
-      });
-
-      if (response.status === 200 || response.status === 201) {
-       
-        Alert.alert("Success", "Registration complete!", [
-          {
-            text: "Go to Login",
-            onPress: () => router.replace("/Auth_Screens/Login"),
-          },
-        ]);
-      }
-       else {
-        setLoading(false);
-        Alert.alert("Failed", "Something went wrong");
-      }
+    if (response.status === 201||response.status === 200) {
+      Alert.alert("Success", "Registration complete!", [
+        {
+          text: "Go to Login",
+          onPress: () => router.replace("/Auth_Screens/Login"),
+        },
+      ]);
     } 
-    catch (error) {
-      const message =
-        error.response?.data?.message ||
-        error.message ||
-        "Server error. Try again.";
+      else{
+      // Handle non-201 responses (e.g., 409)
+      setLoading(false);
+      const message = response.data?.message || "Something went wrong";
       Alert.alert("Registration Failed", message);
-     } 
-     finally {
-  setLoading(false);
-}
+      return;
+    }
+  } catch (error) {
+    setLoading(false);
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Server error. Try again.";
+    Alert.alert("Registration Failed", "Email Already Taken ");
+    return;
+  }
+};
 
-  };
 
   return (
     <SafeAreaView style={styles.container}>
