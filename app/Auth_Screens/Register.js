@@ -15,7 +15,7 @@ import {
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { BASE_URL } from "@/Utils/Api";
+import  BASE_URL  from "@/Utils/Api";
 
 
 
@@ -61,40 +61,54 @@ const handleRegister = async () => {
   try {
     setLoading(true);
 
-    const response = await axios.post(API_URL, {
-  username: username.trim(),
-  email: email.trim().toLowerCase(),
-  password
-}, {
-  timeout: 15000
-});
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000);
 
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json",
+         "Accept": "application/json" },
+      body: JSON.stringify({
+        username: username.trim(),
+        password,
+        email: email.trim().toLowerCase()
+      }),
+      signal: controller.signal
+    });
 
-    if (response.status === 201||response.status === 200) {
+    clearTimeout(timeoutId);
+
+    const responseData = await response.json(); // parse the body properly
+
+    if (response.ok) {
       Alert.alert("Success", "Registration complete!", [
         {
           text: "Go to Login",
           onPress: () => router.replace("/Auth_Screens/Login"),
         },
       ]);
-    } 
-      else{
-      // Handle non-201 responses (e.g., 409)
-      setLoading(false);
-      const message = response.data?.message || "Something went wrong";
+    } else {
+      const message = responseData.message || "Something went wrong";
       Alert.alert("Registration Failed", message);
+      setLoading(false);
       return;
     }
+
   } catch (error) {
     setLoading(false);
-    const message =
-      error.response?.data?.message ||
-      error.message ||
-      "Server error. Try again.";
-    Alert.alert("Registration Failed", message);
+
+    // If it's an AbortError, customize the message
+    if (error.name === "AbortError") {
+      Alert.alert("Request Timeout", "Server took too long to respond.");
+    } else {
+      const message =
+        error.message || "Server error. Try again.";
+      Alert.alert("Registration Failed", message);
+    }
     return;
   }
 };
+
 
 
   return (
@@ -108,6 +122,7 @@ const handleRegister = async () => {
           <Icon name="person" size={24} color="gray" />
         <TextInput
           placeholder="Username"
+           placeholderTextColor="black" 
           value={username}
           onChangeText={setUsername}
           style={styles.input}
@@ -119,6 +134,7 @@ const handleRegister = async () => {
           <Icon name="email" size={24} color="gray" />
         <TextInput
           placeholder="Email"
+          placeholderTextColor="black" 
           value={email}
           onChangeText={setEmail}
           style={styles.input}
@@ -129,12 +145,14 @@ const handleRegister = async () => {
         <View style={styles.textContainer}>
           <Icon name="lock-outline" size={24} color="gray" />
         <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-          secureTextEntry={hide}
-        />
+        placeholder="Password"
+        placeholderTextColor="gray"
+         value={password}
+        onChangeText={setPassword}
+        style={[styles.input, { color: 'black' }]}   
+        secureTextEntry={hide}
+         autoCapitalize="none"                     
+         textContentType="password"/>
         <Pressable onPress={() => setHide(!hide)} style={{ paddingHorizontal: wp("2%") }}>
            <Icon name={hide ? "visibility-off" : "visibility"} size={24} color="gray" />
         </Pressable>

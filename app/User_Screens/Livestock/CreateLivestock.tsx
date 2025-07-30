@@ -50,14 +50,14 @@ function CreateLivestock() {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Text style={styles.header}>➕ Add New Livestock</Text>
 
-      <TextInput style={styles.input} placeholder="Livestock ID (Unique ID)" value={dbId} onChangeText={setDB_id} />
-      <TextInput style={styles.input} placeholder="Animal Type (e.g., Cow)" value={animalType} onChangeText={setAnimalType} />
-      <TextInput style={styles.input} placeholder="Number Of Animals (e.g.,1, 10)" value={quantity} onChangeText={setQuantity} keyboardType="numeric" />
-      <TextInput style={styles.input} placeholder="Breed" value={breed} onChangeText={setBreed} />
-      <TextInput style={styles.input} placeholder="Tag ID" value={tagId} onChangeText={setTagId} />
-      <TextInput style={styles.input} placeholder="Age" value={age} onChangeText={setAge} keyboardType="numeric" />
-      <TextInput style={styles.input} placeholder="Health Status" value={healthStatus} onChangeText={setHealthStatus} />
-      <TextInput style={styles.input} placeholder="Notes" value={notes} onChangeText={setNotes} multiline />
+      <TextInput style={styles.input} placeholder="Livestock ID (Unique ID)" placeholderTextColor="black"  value={dbId} onChangeText={setDB_id} />
+      <TextInput style={styles.input} placeholder="Animal Type (e.g., Cow)" placeholderTextColor="black" value={animalType} onChangeText={setAnimalType} />
+      <TextInput style={styles.input} placeholder="Number Of Animals (e.g.,1, 10)" placeholderTextColor="black" value={quantity} onChangeText={setQuantity} keyboardType="numeric" />
+      <TextInput style={styles.input} placeholder="Breed" placeholderTextColor="black" value={breed} onChangeText={setBreed} />
+      <TextInput style={styles.input} placeholder="Tag ID" placeholderTextColor="black" value={tagId} onChangeText={setTagId} />
+      <TextInput style={styles.input} placeholder="Age" placeholderTextColor="black" value={age} onChangeText={setAge} keyboardType="numeric" />
+      <TextInput style={styles.input} placeholder="Health Status" placeholderTextColor="black" value={healthStatus} onChangeText={setHealthStatus} />
+      <TextInput style={styles.input} placeholder="Notes" placeholderTextColor="black" value={notes} onChangeText={setNotes} multiline />
 
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>💾 Save Livestock</Text>
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     padding: hp("2%"),
     marginVertical:hp("1.5%"),
     fontSize: wp("5%"),
-
   },
 
   button: {

@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import BASE_URL from '../../../Utils/Api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ViewLivestock = () => {
   const { dbId: paramDbId } = useLocalSearchParams();
@@ -143,10 +144,8 @@ const ViewLivestock = () => {
   }
 
   return (
-    <ScrollView 
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
+    <SafeAreaView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} >
               <View style={{marginVertical:hp("2.5%")}}></View>
       
       <Text style={styles.title}>🐄 Livestock Details</Text>
@@ -168,6 +167,7 @@ const ViewLivestock = () => {
         <Text style={styles.buttonText}>✏️ Update</Text>
       </Pressable>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

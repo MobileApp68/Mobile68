@@ -143,6 +143,7 @@ function Login() {
             <TextInput
               style={styles.txtin}
               placeholder="Email Address"
+              placeholderTextColor="black" 
               value={email}
               autoCapitalize="none"
               keyboardType="email-address"
@@ -158,13 +159,15 @@ function Login() {
           <View style={[styles.passarea, passError ? styles.errorBorder : null]}>
             <Icon name="lock-outline" size={24} color="gray" />
             <TextInput
-              style={styles.passin}
+              style={[styles.passin, { color: 'black' }]}
+              placeholderTextColor="black" 
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
                 if (passError) setPassError("");
               }}
               placeholder="Password"
+              autoCapitalize="none" 
               secureTextEntry={hide}
             />
             <Pressable onPress={() => setHide(!hide)} style={{ paddingHorizontal: wp("2%") }}>
